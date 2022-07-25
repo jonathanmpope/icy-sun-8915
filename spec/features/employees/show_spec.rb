@@ -47,8 +47,36 @@ RSpec.describe 'the employee show page' do
         within ("#tickets") do 
             expect(page.all('.ticket')[1]).to have_content("Change layout")
         end 
-        
     end 
 
+      it 'can see a list of other employees that share tickets' do 
+        shoes = Department.create!(name:"Shoes", floor:3)
+        susan = shoes.employees.create!(name:"Susan", level:5)
+        ticket1 = Ticket.create!(subject:"Discounts", age:3)
+        EmployeeTicket.create!(ticket: ticket1, employee: susan)
+        ticket2 = Ticket.create!(subject:"Remove signs", age:1)
+        EmployeeTicket.create!(ticket: ticket2, employee: susan)
 
+        mens = Department.create!(name:"Men's Clothing", floor:2)
+        louis = mens.employees.create!(name:"Louis", level:2)
+        EmployeeTicket.create!(ticket: ticket1, employee: louis)
+
+        womens = Department.create!(name:"Women's Clothing", floor:1)
+        alexa = womens.employees.create!(name:"Alexa", level:7)
+        EmployeeTicket.create!(ticket: ticket2, employee: alexa)
+
+        makeup = Department.create!(name:"Maekup", floor:1)
+        blake = womens.employees.create!(name:"Blake", level:4)
+        ticket3 = Ticket.create!(subject:"Clean shelving", age:5)
+        EmployeeTicket.create!(ticket: ticket3, employee: blake)
+
+        visit "/employees/#{susan.id}"
+
+        expect(page).to have_content("Level: 5")
+
+        within ("#best_friends") do 
+            expect(page).to have_content("Name: Louis")
+            expect(page).to have_content("Name: Alexa")
+        end 
+    end 
 end 

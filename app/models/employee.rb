@@ -13,4 +13,8 @@ class Employee < ApplicationRecord
   def oldest_ticket
     tickets.order(age: :desc).first
   end 
+
+  def self.best_friends(id, ticket_ids)
+    joins(:tickets).where(:tickets => {:id => ticket_ids}).where.not(id: id)
+  end 
 end

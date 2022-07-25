@@ -1,5 +1,6 @@
 <h3>Name: <%= @employee.name %> </h3>
 <h3>Department: <%= @employee.department.name %> </h3>
+<h3>Level: <%= @employee.level %> </h3>
 <div id="oldest_ticket">
     <h3>Oldest Ticket: </h3>
     <p>Subject: <%= @employee.oldest_ticket.subject %></p>
@@ -19,3 +20,9 @@
     <%= form.number_field :ticket_id %>
     <%= form.submit "Add Ticket"%>
 <% end %>
+<div id="best_friends">
+    <h4>Best Friends:</h4>
+    <h3><% @best_friends.each do |friend| %> </h3>
+        <p>Name: <%= friend.name %></p>
+    <% end %>
+</div>
