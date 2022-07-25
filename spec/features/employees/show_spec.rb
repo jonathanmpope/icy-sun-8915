@@ -34,6 +34,7 @@ RSpec.describe 'the employee show page' do
         susan.tickets.create!(subject:"Discounts", age:3)
         susan.tickets.create!(subject:"Remove signs", age:1)
         susan.tickets.create!(subject:"Clean shelving", age:5)
+        
         mens = Department.create!(name:"Men's Clothing", floor:2)
         louis = mens.employees.create!(name:"Louis", level:2)
         ticket = Ticket.create!(subject:"Change layout", age:2)
