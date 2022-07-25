@@ -17,4 +17,26 @@ RSpec.describe 'the department index page' do
         expect(page).to_not have_content("Department: Makeup")
     end 
 
+    it 'has a list of all departments with employees info' do 
+        shoes = Department.create!(name:"Shoes", floor:3)
+        shoes.employees.create!(name:"Susan", level:5)
+        shoes.employees.create!(name:"Grant", level:2)
+        mens = Department.create!(name:"Men's Clothing", floor:2)
+        mens.employees.create!(name:"Louis", level:2)
+        womens = Department.create!(name:"Women's Clothing", floor:1)
+        womens.employees.create!(name:"Alexa", level:7)
+        womens.employees.create!(name:"Andrea", level:5)
+
+        visit '/departments'
+        save_and_open_page
+
+        within ("#departments") do 
+            expect(page.all('.department')[0]).to have_content("Susan")
+            expect(page.all('.department')[0]).to have_content("Grant")
+            expect(page.all('.department')[1]).to have_content("Louis")
+            expect(page.all('.department')[2]).to have_content("Alexa")
+            expect(page.all('.department')[2]).to have_content("Andrea")
+        end 
+    end
+
 end 
