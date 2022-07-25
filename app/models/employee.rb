@@ -5,4 +5,12 @@ class Employee < ApplicationRecord
 
   validates_presence_of :name
   validates_presence_of :level
+
+  def employee_tickets
+    tickets.order(age: :desc).limit(tickets.count - 1).offset(1)
+  end 
+
+  def oldest_ticket
+    tickets.order(age: :desc).first
+  end 
 end

@@ -28,7 +28,6 @@ RSpec.describe 'the department index page' do
         womens.employees.create!(name:"Andrea", level:5)
 
         visit '/departments'
-        save_and_open_page
 
         within ("#departments") do 
             expect(page.all('.department')[0]).to have_content("Susan")
